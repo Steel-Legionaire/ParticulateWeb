@@ -1,0 +1,28 @@
+{
+  "name": "particulatewebapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "pixi.js": "^8.14.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Steel-Legionaire/ParticulateWebApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Steel-Legionaire/ParticulateWebApp/issues"
+  },
+  "homepage": "https://github.com/Steel-Legionaire/ParticulateWebApp#readme",
+  "devDependencies": {
+    "vite": "^7.2.4"
+  }
+}
