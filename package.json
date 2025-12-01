@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/Steel-Legionaire/ParticulateWebApp#readme",
   "devDependencies": {
-    "vite": "^7.2.4"
+    "vite": "^7.2.6"
   }
 }

@@ -1,0 +1,55 @@
+import { Graphics } from "pixi.js";
+
+class Particle{
+    constructor(x, y, isFlammable, isDestructable, toughness, speed, app, matrix){
+        this.x = x;
+        this.y = y;
+        this.isFlammable = isFlammable;
+        this.isDestructable = isDestructable;
+        this.toughness = toughness;
+        this.movedThisFrame = false;
+
+        this.speed = speed;
+
+        this.app = app;
+        this.matrix = matrix;
+
+        this.tileSize = matrix.getTileSize();
+
+        this.rect = new Graphics().rect(0, 0, this.tileSize, this.tileSize);
+    }
+
+
+    move(){}
+    action(){}
+
+    getX(){ return this.x; }
+    getY(){ return this.y; }
+
+    setPosition(x, y) {
+        this.x = x;
+        this.y = y;
+
+        this.rect.position.set(x * this.tileSize, y * this.tileSize);
+    }
+
+
+    setX(n)
+    { 
+        this.x = n; 
+        this.rect.x = n*this.tileSize;
+        console.log(this.rect.x);
+    }
+    setY(n)
+    { 
+        this.y = n; 
+        this.rect.y = n*this.tileSize;
+        console.log(this.rect.y);
+    }
+
+    addToStage(obj){
+        this.app.stage.addChild(obj);
+    }
+}
+
+export default Particle;
