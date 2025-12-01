@@ -3,6 +3,10 @@ import { Application, EventSystem } from "pixi.js";
 import Matrix from './matrix.js' ;
 import Sand from './particles/solids/moveableSolids/sand.js'
 
+var mouseDown = false;
+var mouseX = null;
+var mouseY = null;
+
 (async () => {
     const app = new Application();
     await app.init({
@@ -21,6 +25,10 @@ import Sand from './particles/solids/moveableSolids/sand.js'
     function gameLoop(){
         //console.log('Updating');
         matrix.updateGrid();
+
+        if(mouseDown){
+            matrix.createParticle(mouseX, mouseY);
+        }
     }
 
     // Enable event system (required in v8)
@@ -31,7 +39,25 @@ import Sand from './particles/solids/moveableSolids/sand.js'
 
     app.stage.on("mousedown", (event) => {
         //console.log("mouse global:", event.global.x, event.global.y);
-        matrix.createParticle(Math.trunc(event.global.x / matrix.getTileSize()), Math.trunc(event.global.y / matrix.getTileSize()));
+        //matrix.createParticle(Math.trunc(event.global.x / matrix.getTileSize()), Math.trunc(event.global.y / matrix.getTileSize()));
+        mouseX = Math.trunc(event.global.x / matrix.getTileSize());
+        mouseY = Math.trunc(event.global.y / matrix.getTileSize());
+        mouseDown = true;
+    
+    });
+
+    app.stage.on("mousemove", (event) => {
+        //console.log("mouse global:", event.global.x, event.global.y);
+        //matrix.createParticle(Math.trunc(event.global.x / matrix.getTileSize()), Math.trunc(event.global.y / matrix.getTileSize()));
+        mouseX = Math.trunc(event.global.x / matrix.getTileSize());
+        mouseY = Math.trunc(event.global.y / matrix.getTileSize());
+    });
+
+    app.stage.on("mouseup", (event) => {
+        //console.log("mouse global:", event.global.x, event.global.y);
+        //matrix.createParticle(Math.trunc(event.global.x / matrix.getTileSize()), Math.trunc(event.global.y / matrix.getTileSize()));
+        
+        mouseDown = false;
     });
 
     
