@@ -1,5 +1,5 @@
 import Solid from '../solid'
-
+import Sand from './sand';
 
 class MoveableSolid extends Solid{
     constructor(x, y, isFlammable, isDestructable, toughness, speed, app, matrix)
@@ -11,10 +11,16 @@ class MoveableSolid extends Solid{
     move(){
         if(this.framesSinceLastUpdate == this.speed && !(this.movedThisFrame)){
             //console.log(`${this.getX()}, ${this.getY()}`);
-            var bottomTile = this.getY()+1 < this.matrix.getRows() ? this.matrix.getParticle(this.x, this.y+1) : undefined ;
+            let bottomTile = this.getY()+1 < this.matrix.getRows() ? this.matrix.getParticle(this.x, this.y+1) : undefined ;
 
             if(bottomTile === null){
                 this.matrix.swapParticles(this.getX(), this.getY(), this.getX(), this.getY()+1);
+            }else if(bottomTile instanceof Sand){
+                let bottomRight = this.matrix.getParticle(this.getX() + 1, this.getY() + 1);
+                let bottomLeft = this.matrix.getParticle(this.getX() - 1, this.getY() + 1);
+
+                if(bottomLeft === null){ this.matrix.swapParticles(this.getX(), this.getY(), this.getX()-1, this.getY()+1); }
+                else if(bottomRight === null){ this.matrix.swapParticles(this.getX(), this.getY(), this.getX()+1, this.getY()+1); }
             }
 
             this.framesSinceLastUpdate = 0;
@@ -22,7 +28,7 @@ class MoveableSolid extends Solid{
 
         }else if(this.movedThisFrame){
             this.movedThisFrame = false;
-            
+
         }else{
             this.framesSinceLastUpdate++;
         }

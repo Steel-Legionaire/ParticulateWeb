@@ -30,7 +30,7 @@ import Sand from './particles/solids/moveableSolids/sand.js'
     app.stage.hitArea = app.screen;
 
     app.stage.on("mousedown", (event) => {
-        console.log("mouse global:", event.global.x, event.global.y);
+        //console.log("mouse global:", event.global.x, event.global.y);
         matrix.createParticle(Math.trunc(event.global.x / matrix.getTileSize()), Math.trunc(event.global.y / matrix.getTileSize()));
     });
 

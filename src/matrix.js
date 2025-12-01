@@ -24,9 +24,9 @@ class Matrix {
     }
 
     updateGrid(){
-        for (let r = 0; r < this.rows; r++)
+        for (let r = this.rows-1; r >= 0; r--)
         {
-            for(let c = 0; c < this.cols; c++)
+            for(let c = this.cols-1; c >= 0; c--)
             {
                 if(this.getParticle(c, r) != null){
                     this.matrix[r][c].move();
@@ -36,9 +36,10 @@ class Matrix {
     }
 
     createParticle(x, y){
-
-        this.matrix[y][x] = new Sand(x, y, false, true, 5, 2, this.app, this);
-    
+        if(this.matrix[y][x] == null){
+            this.matrix[y][x] = new Sand(x, y, false, true, 5, 0, this.app, this);
+        }
+        
     }
 
     swapParticles(x1, y1, x2, y2){
@@ -55,7 +56,8 @@ class Matrix {
 
     getParticle(x, y)
     { 
-        return this.matrix[y][x]; }
+        return this.matrix[y][x]; 
+    }
 
     getTileSize(){ return this.tileSize; }
 
