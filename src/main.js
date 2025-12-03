@@ -4,6 +4,9 @@ import Matrix from './matrix.js' ;
 
 import { Sand, Dirt } from "./particles/particles.js";
 
+let maxWidth = 1800;
+let maxHeight = 800;
+
 let mouseDown = false;
 let mouseX = null;
 let mouseY = null;
@@ -16,8 +19,9 @@ let selectedParticle = Sand;
 (async () => {
     const app = new Application();
     await app.init({
-        width: window.innerWidth < 1800 ? window.innerWidth : 1800,
-        height: window.innerHeight < 800 ? window.innerHeight : 800,
+        // set height and width only if window is smaller than max sizes
+        width: window.innerWidth < maxWidth ? window.innerWidth : maxWidth,
+        height: window.innerHeight < maxHeight ? window.innerHeight : maxHeight,
     });
 
     document.body.appendChild(app.canvas);
@@ -61,11 +65,7 @@ let selectedParticle = Sand;
         matrix.updateGrid();
 
         if(mouseDown){
-            let temp = matrix.traverseMatrix(previouseMouseX, previouseMouseY, mouseX, mouseY);
-
-            for( let i=0; i<temp.length; i++){
-                matrix.createParticle(temp[i][0], temp[i][1], selectedParticle);
-            }
+            matrix.traverseMatrixAndCreate(previouseMouseX, previouseMouseY, mouseX, mouseY, selectedParticle);
         }
     }
 
