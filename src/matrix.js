@@ -2,14 +2,16 @@ import { Graphics, styleAttributes } from "pixi.js";
 import Sand from "./particles/solids/moveableSolids/sand";
 
 class Matrix {
-    constructor(app){
+    constructor(app, containers){
 
         this.app = app;
-        this.tileSize = 10;
+        this.containers = containers;
+
+        this.tileSize = 7;
 
         // Initialize matrix to size of the canvas with null values
-        this.rows = Math.trunc(app.canvas.height / this.tileSize);
-        this.cols = Math.trunc(app.canvas.width / this.tileSize);
+        this.rows = Math.trunc(containers.playArea.height / this.tileSize);
+        this.cols = Math.trunc(containers.playArea.width / this.tileSize);
 
         this.matrix = []
 
@@ -88,8 +90,6 @@ class Matrix {
             for (let x = startX; x <= endX; x++) {
                 let y = startY + slope * (x - startX);
 
-               
-                //console.log(`${startY + slope}, ${x- startX}, ${startY + slope * (x - startX)}`);
                 allCoords.push([x, Math.round(y)])
             }
         }else {
