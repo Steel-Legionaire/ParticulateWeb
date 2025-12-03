@@ -1,6 +1,6 @@
 import { MoveableSolid } from "./solids";
 
-class Sand extends MoveableSolid{
+class Sand extends MoveableSolid {
     constructor(x, y, app, matrix){
         super(x, y, false, true, 5, 0, app, matrix)
 
@@ -12,6 +12,18 @@ class Sand extends MoveableSolid{
     }
 }
 
+class Dirt extends MoveableSolid {
+    constructor(x, y, app, matrix){
+        super(x, y, false, true, 5, 0, app, matrix)
+
+        let colors = [0x964B00, 0xA05014, 0x8C4614, 0x823C0A, 0x9B550F];
+
+        this.setColor(colors);
+        this.rect.position.set(this.x * this.tileSize, this.y * this.tileSize);
+        this.addToStage(this.rect);
+    }
+}
+
 export default Sand;
 
-export { Sand };
+export { Sand, Dirt };

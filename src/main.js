@@ -2,7 +2,7 @@ import { Application, EventSystem, Text, Container, Graphics } from "pixi.js";
 import { FancyButton } from '@pixi/ui';
 import Matrix from './matrix.js' ;
 
-import { Sand } from "./particles/particles.js";
+import { Sand, Dirt } from "./particles/particles.js";
 
 let mouseDown = false;
 let mouseX = null;
@@ -16,9 +16,10 @@ let selectedParticle = Sand;
 (async () => {
     const app = new Application();
     await app.init({
-        width: 1800,
-        height: 800,
+        width: window.innerWidth < 1800 ? window.innerWidth : 1800,
+        height: window.innerHeight < 800 ? window.innerHeight : 800,
     });
+
     document.body.appendChild(app.canvas);
 
     const containers = {
@@ -32,18 +33,22 @@ let selectedParticle = Sand;
     addToStage(containers.playArea, containers.menu);
 
     // set background color and size of container
-    containers.playArea.addChild(new Graphics().rect(0, 0, 1800, 500).fill(0x555555));
-    containers.menu.addChild(new Graphics().rect(0, 0, 1800, 300).fill(0x333333))
+    containers.playArea.addChild(new Graphics().rect(0, 0, app.screen.width, app.screen.height - 300).fill(0x555555));
+    containers.menu.addChild(new Graphics().rect(0, 0, app.screen.width, app.screen.height).fill(0x333333))
 
 
-    const button = createButton('Click Me!');
-    button.position.set(50, 50);
-    containers.menu.addChild(button);
+    const dirtBTN = createButton('Dirt');
+    dirtBTN.position.set(50, 50);
+    containers.menu.addChild(dirtBTN);
 
-    button.on('pointerdown', () => { console.log("Clicked!");});
+    dirtBTN.on('pointerdown', () => { selectedParticle = Dirt; });
 
 
+    const sandBTN = createButton('Sand');
+    sandBTN.position.set(250, 50);
+    containers.menu.addChild(sandBTN);
 
+    sandBTN.on('pointerdown', () => { selectedParticle = Sand; });
 
 
 
