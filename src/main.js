@@ -3,9 +3,12 @@ import { Application, EventSystem } from "pixi.js";
 import Matrix from './matrix.js' ;
 import Sand from './particles/solids/moveableSolids/sand.js'
 
-var mouseDown = false;
-var mouseX = null;
-var mouseY = null;
+let mouseDown = false;
+let mouseX = null;
+let mouseY = null;
+
+let previouseMouseX = null;
+let previouseMouseY = null;
 
 (async () => {
     const app = new Application();
@@ -18,7 +21,7 @@ var mouseY = null;
 
     const matrix = new Matrix(app)
 
-    //app.stage.addChild(new Graphics().rect(10,10,10,10).fill(0xffffff));
+
 
     app.ticker.add(gameLoop);
 
@@ -27,19 +30,21 @@ var mouseY = null;
         matrix.updateGrid();
 
         if(mouseDown){
-            matrix.createParticle(mouseX, mouseY);
+            let temp = matrix.traverseMatrix(previouseMouseX, previouseMouseY, mouseX, mouseY);
+            
+            console.log(temp);
+            for( let i=0; i<temp.length; i++){
+                matrix.createParticle(temp[i][0], temp[i][1]);
+            }
         }
     }
 
-    // Enable event system (required in v8)
     app.renderer.events = new EventSystem(app.renderer);
 
     app.stage.eventMode = "static";
     app.stage.hitArea = app.screen;
 
     app.stage.on("mousedown", (event) => {
-        //console.log("mouse global:", event.global.x, event.global.y);
-        //matrix.createParticle(Math.trunc(event.global.x / matrix.getTileSize()), Math.trunc(event.global.y / matrix.getTileSize()));
         mouseX = Math.trunc(event.global.x / matrix.getTileSize());
         mouseY = Math.trunc(event.global.y / matrix.getTileSize());
         mouseDown = true;
@@ -47,16 +52,14 @@ var mouseY = null;
     });
 
     app.stage.on("mousemove", (event) => {
-        //console.log("mouse global:", event.global.x, event.global.y);
-        //matrix.createParticle(Math.trunc(event.global.x / matrix.getTileSize()), Math.trunc(event.global.y / matrix.getTileSize()));
+        previouseMouseX = mouseX;
+        previouseMouseY = mouseY;
+
         mouseX = Math.trunc(event.global.x / matrix.getTileSize());
         mouseY = Math.trunc(event.global.y / matrix.getTileSize());
     });
 
     app.stage.on("mouseup", (event) => {
-        //console.log("mouse global:", event.global.x, event.global.y);
-        //matrix.createParticle(Math.trunc(event.global.x / matrix.getTileSize()), Math.trunc(event.global.y / matrix.getTileSize()));
-        
         mouseDown = false;
     });
 
