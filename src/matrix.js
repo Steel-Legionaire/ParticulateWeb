@@ -36,9 +36,12 @@ class Matrix {
     }
 
     createParticle(x, y){
-        if(this.matrix[y][x] == null){
-            this.matrix[y][x] = new Sand(x, y, false, true, 5, 0, this.app, this);
+        if(this.withinBounds(x, y)){
+            if(this.matrix[y][x] === null){
+                this.matrix[y][x] = new Sand(x, y, false, true, 5, 0, this.app, this);
+            }
         }
+
         
     }
 
@@ -51,6 +54,82 @@ class Matrix {
             this.matrix[y1][x1] = null;
             p1.setPosition(x2, y2);
         }
+    }
+
+    traverseMatrix(startX, startY, endX, endY){
+        
+        // Distances between the points
+        let dx = endX - startX;
+        let dy = endY - startY;
+
+        let allCoords = [];
+
+        if (Math.abs(dx) >= Math.abs(dy)) {
+            // Iterate over x
+            if (startX > endX) {
+                // Swap points to ensure increasing x
+                let tempX = startX
+                let tempY = startY;
+
+                startX = endX; 
+                startY = endY;
+
+                endX = tempX; 
+                endY = tempY;
+
+                dx = endX - startX;
+                dy = endY - startY;
+            }
+
+            let slope = dy / dx;
+
+            for (let x = startX; x <= endX; x++) {
+                let y = startY + slope * (x - startX);
+                allCoords.push([x, Math.round(y)])
+            }
+        }else {
+            // Iterate over y
+            if (startY > endY) {
+                // Swap points to ensure increasing y
+                let tempX = startX
+                let tempY = startY;
+                
+                startX = endX; 
+                startY = endY;
+
+                endX = tempX; 
+                endY = tempY;
+
+                dx = endX - startX;
+                dy = endY - startY;
+            }
+
+            let invSlope = dx / dy;
+
+            for (let y = startY; y <= endY; y++) {
+                let x = startX + invSlope * (y - startY);
+                allCoords.push([x, Math.round(y)])
+            }
+        }
+
+        return allCoords;
+    }
+
+    resetMatrix(){
+        this.matrix = []
+
+        for (let r = 0; r < this.rows; r++)
+        {
+            this.matrix[r] = [];
+            for(let c = 0; c < this.cols; c++)
+            {
+                this.matrix[r][c] = null;
+            }
+        }
+    }
+
+    withinBounds(x, y){
+        return ((x < this.getCols() && x >=0) && (y < this.getRows() && y >= 0));
     }
 
 
