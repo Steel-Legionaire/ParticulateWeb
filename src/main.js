@@ -1,7 +1,5 @@
 import { Application, EventSystem, Text, Container, Graphics } from "pixi.js";
-
 import Matrix from './matrix.js' ;
-import Sand from './particles/solids/moveableSolids/sand.js'
 
 let mouseDown = false;
 let mouseX = null;
@@ -31,33 +29,8 @@ let previouseMouseY = null;
     // set background color and size of container
     containers.playArea.addChild(new Graphics().rect(0, 0, 1800, 500).fill(0x555555));
     containers.menu.addChild(new Graphics().rect(0, 0, 1800, 300).fill(0x333333))
-    
 
 
-    app.renderer.events = new EventSystem(app.renderer);
-
-
-    // Create a Text object to display the FPS
-    const fpsText = new Text('FPS: 0', {
-        fontFamily: 'Arial',
-        fontSize: 24,
-        fill: 0xffffff,
-    });
-    fpsText.x = 10;
-    fpsText.y = 10;
-    containers.menu.addChild(fpsText);
-
-    // Add a listener to the ticker to update the FPS display
-    let updateFps = true;
-    app.ticker.add(() => {
-        if(updateFps){
-            fpsText.text = `FPS: ${app.ticker.FPS.toFixed(0)}`;
-            updateFps = false;
-        }else{
-            updateFps = true;
-        }
-        
-    });
 
     const matrix = new Matrix(app, containers)
 
@@ -75,8 +48,8 @@ let previouseMouseY = null;
         }
     }
 
+    // Mouse and keyboard inputs
     app.renderer.events = new EventSystem(app.renderer);
-
     app.stage.eventMode = "static";
     app.stage.hitArea = app.screen;
 
@@ -107,5 +80,27 @@ let previouseMouseY = null;
             app.stage.addChild(arguments[i]);
         }
     }
+
+    // Create a Text object to display the FPS
+    const fpsText = new Text('FPS: 0', {
+        fontFamily: 'Arial',
+        fontSize: 24,
+        fill: 0xffffff,
+    });
+    fpsText.x = 10;
+    fpsText.y = 10;
+    containers.menu.addChild(fpsText);
+
+    // Add a listener to the ticker to update the FPS display
+    let updateFps = true;
+    app.ticker.add(() => {
+        if(updateFps){
+            fpsText.text = `FPS: ${app.ticker.FPS.toFixed(0)}`;
+            updateFps = false;
+        }else{
+            updateFps = true;
+        }
+        
+    });
 
 })();
