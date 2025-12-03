@@ -1,5 +1,3 @@
-import { Graphics, styleAttributes } from "pixi.js";
-import Sand from "./particles/solids/moveableSolids/sand";
 
 class Matrix {
     constructor(app, containers){
@@ -37,14 +35,12 @@ class Matrix {
         }
     }
 
-    createParticle(x, y){
+    createParticle(x, y, ParticleClass){
         if(this.withinBounds(x, y)){
             if(this.matrix[y][x] === null){
-                this.matrix[y][x] = new Sand(x, y, false, true, 5, 0, this.app, this);
+                this.matrix[y][x] = new ParticleClass(x, y,this.app, this);
             }
-        }
-
-        
+        } 
     }
 
     swapParticles(x1, y1, x2, y2){
