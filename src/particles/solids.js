@@ -34,8 +34,11 @@ class MoveableSolid extends StaticSolid{
                 let bottomRight = this.matrix.getParticle(this.getX() + 1, this.getY() + 1);
                 let bottomLeft = this.matrix.getParticle(this.getX() - 1, this.getY() + 1);
 
-                if(bottomLeft === null){ this.matrix.swapParticles(this.getX(), this.getY(), this.getX()-1, this.getY()+1); }
-                else if(bottomRight === null){ this.matrix.swapParticles(this.getX(), this.getY(), this.getX()+1, this.getY()+1); }
+                let right = this.matrix.getParticle(this.getX() + 1, this.getY());
+                let left = this.matrix.getParticle(this.getX() - 1, this.getY());
+
+                if(bottomLeft === null && left === null){ this.matrix.swapParticles(this.getX(), this.getY(), this.getX()-1, this.getY()+1); }
+                else if(bottomRight === null && right === null){ this.matrix.swapParticles(this.getX(), this.getY(), this.getX()+1, this.getY()+1); }
             }
 
             this.framesSinceLastUpdate = 0;
