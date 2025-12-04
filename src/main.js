@@ -2,7 +2,7 @@ import { Application, EventSystem, Text, Container, Graphics } from "pixi.js";
 import { FancyButton } from '@pixi/ui';
 import Matrix from './matrix.js' ;
 
-import { Sand, Dirt } from "./particles/particles.js";
+import { Sand, Dirt, Stone } from "./particles/particles.js";
 
 let maxWidth = 1800;
 let maxHeight = 800;
@@ -161,7 +161,8 @@ let selectedParticle = Sand;
         let allButtons = {
             sandBtn: createButton("Sand").on('pointerdown', () => { selectedParticle = Sand; }),
             dirtBtn: createButton("Dirt").on('pointerdown', () => { selectedParticle = Dirt; }),
-            eraserBtn: createButton("Eraser").on('pointerdown', () => { selectedParticle = null })
+            wallBtn: createButton("Stone").on('pointerdown', () => { selectedParticle = Stone; }),
+            eraserBtn: createButton("Eraser").on('pointerdown', () => { selectedParticle = null }),
         }
 
         let i = 0;

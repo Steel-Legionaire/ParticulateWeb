@@ -1,4 +1,36 @@
-import { MoveableSolid } from "./solids";
+import { MoveableSolid, StaticSolid } from "./solids";
+
+// Teplate for easy copying
+/*
+class Class extends Class {
+    constructor(x, y, app, matrix){
+        super(x, y, false, true, 5, 0, app, matrix)
+
+        let colors = [];
+
+        this.setColor(colors);
+        this.rect.position.set(this.x * this.tileSize, this.y * this.tileSize);
+        this.addToStage(this.rect);
+    }
+}
+*/
+
+
+// Solids
+
+class Stone extends StaticSolid {
+    constructor(x, y, app, matrix){
+        super(x, y, false, true, 5, 0, app, matrix)
+
+        let colors = [0x8C8C8C, 0x828282];
+
+        this.setColor(colors);
+        this.rect.position.set(this.x * this.tileSize, this.y * this.tileSize);
+        this.addToStage(this.rect);
+    }
+}
+
+// Moveable Solids
 
 class Sand extends MoveableSolid {
     constructor(x, y, app, matrix){
@@ -24,6 +56,10 @@ class Dirt extends MoveableSolid {
     }
 }
 
+// Liquids
+
+// Misc
+
 export default Sand;
 
-export { Sand, Dirt };
+export { Sand, Dirt, Stone };
