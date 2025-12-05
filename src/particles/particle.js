@@ -1,4 +1,4 @@
-import { Graphics } from "pixi.js";
+import {  Graphics } from "https://cdn.jsdelivr.net/npm/pixi.js@8/dist/esm/index.js";
 
 class Particle{
     constructor(x, y, isFlammable, isDestructable, toughness, speed, app, matrix){
