@@ -3,6 +3,8 @@ import Matrix from './matrix.js' ;
 
 import { Sand, Dirt, Stone, Water } from "./particles/particles.js";
 
+const { Application, EventSystem, Text, Container, Graphics } = PIXI;
+
 let maxWidth = 1800;
 let maxHeight = 1000;
 
