@@ -57,6 +57,18 @@ class Dirt extends MoveableSolid {
     }
 }
 
+class Ash extends MoveableSolid {
+    constructor(x, y, app, matrix){
+        super(x, y, false, true, 5, 0, app, matrix)
+
+        let colors = [0xE6E6E6, 0xC8C8C8, 0xD7D7D7, 0xF0F0F0];
+
+        this.setColor(colors);
+        this.rect.position.set(this.x * this.tileSize, this.y * this.tileSize);
+        this.addToStage(this.rect);
+    }
+}
+
 // Liquids
 
 class Water extends Liquid {
@@ -75,4 +87,4 @@ class Water extends Liquid {
 
 export default Sand;
 
-export { Sand, Dirt, Stone, Water };
+export { Sand, Dirt, Stone, Water, Ash };

@@ -1,7 +1,7 @@
 
 import Matrix from './matrix.js' ;
 
-import { Sand, Dirt, Stone, Water } from "./particles/particles.js";
+import { Sand, Dirt, Stone, Water, Ash } from "./particles/particles.js";
 
 const { Application, EventSystem, Text, Container, Graphics } = PIXI;
 
@@ -156,39 +156,56 @@ let selectedParticle = Sand;
 
 
         let allButtons = createButtons(buttonY, buttonSpacing, buttonIndent);
+
+        //allButtons["staticSolidsButtons"]["stoneBtn"].visible = false;
     }
 
     function createButtons(buttonY, buttonSpacing, buttonIndent){
+
         let allButtons = {
-            sandBtn: createButton("Sand").on('pointerdown', () => { selectedParticle = Sand; }),
-            dirtBtn: createButton("Dirt").on('pointerdown', () => { selectedParticle = Dirt; }),
-            wallBtn: createButton("Stone").on('pointerdown', () => { selectedParticle = Stone; }),
-            eraserBtn: createButton("Eraser").on('pointerdown', () => { selectedParticle = null }),
-            waterBtn: createButton("Water").on('pointerdown', () => { selectedParticle = Water }),
+            staticSolidsButtons: {
+                stoneBtn: createButton("Stone").on('pointerdown', () => { selectedParticle = Stone; }),
+            },
+            moveableSolidsButtons: {
+                sandBtn: createButton("Sand").on('pointerdown', () => { selectedParticle = Sand; }),
+                dirtBtn: createButton("Dirt").on('pointerdown', () => { selectedParticle = Dirt; }),
+                ashBtn: createButton("Ash").on('pointerdown', () => { selectedParticle = Ash }),
+            },
+            liquidsButtons: {
+                waterBtn: createButton("Water").on('pointerdown', () => { selectedParticle = Water }),
+            },
+            gasesButtons: {},
+            miscButtons: {
+                eraserBtn: createButton("Eraser").on('pointerdown', () => { selectedParticle = null }),
+            },
         }
 
         let i = 0;
-        for(let btn in allButtons){
+        for(let btns in allButtons){
+            btns = allButtons[btns];
+            for(let btn in btns){
 
-            let btnPos = buttonSpacing*i + buttonIndent;
-            let row = 1;
+                let btnPos = buttonSpacing*i + buttonIndent;
+                let row = 1;
 
-            if(btnPos + allButtons[btn].width >= app.screen.width){
-                i = 0;
-                row++;
+                if(btnPos + btns[btn].width >= app.screen.width){
+                    i = 0;
+                    row++;
 
-                buttonY = (buttonY * row) + buttonIndent/2;
-                btnPos = buttonSpacing*i + buttonIndent;
+                    buttonY = (buttonY * row) + buttonIndent/2;
+                    btnPos = buttonSpacing*i + buttonIndent;
+                }
+                
+                if(i == 0){ btns[btn].position.set(buttonIndent, buttonY); }
+                else{
+                    btns[btn].position.set(btnPos, buttonY);
+                }
+
+                containers.menu.addChild(btns[btn]);
+                i++;
             }
-            
-            if(i == 0){ allButtons[btn].position.set(buttonIndent, buttonY); }
-            else{
-                allButtons[btn].position.set(btnPos, buttonY);
-            }
-
-            containers.menu.addChild(allButtons[btn]);
-            i++;
         }
+
 
         return allButtons;
 
