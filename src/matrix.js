@@ -233,7 +233,7 @@ class Matrix {
 
 
     addToStage(obj){
-        this.containers.playArea.addChild(obj);
+        this.app.stage.addChild(obj);
     }
 }
 
