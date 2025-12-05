@@ -1,4 +1,4 @@
-const Graphics = PIXI;
+const { Graphics } = PIXI;
 
 class Particle{
     constructor(x, y, isFlammable, isDestructable, toughness, speed, app, matrix){
