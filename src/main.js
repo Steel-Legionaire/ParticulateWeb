@@ -20,6 +20,7 @@ let selectedParticle = Sand;
 (async () => {
     const app = new Application();
     await app.init({
+        view: document.querySelector("#pixi"),
         // set height and width only if window is smaller than max sizes
         width: window.innerWidth < maxWidth ? window.innerWidth : maxWidth,
         height: window.innerHeight < maxHeight ? window.innerHeight : maxHeight,
@@ -30,12 +31,13 @@ let selectedParticle = Sand;
     const containers = {
         playArea: new Container(),
         menu: new Container(),
+        ui: new Container(),
     };
 
     containers.menu.x = 0;
     containers.menu.y = app.screen.height - 300;
 
-    addToStage(containers.playArea, containers.menu);
+    addToStage(containers.playArea, containers.menu, containers.ui);
 
     // set background color and size of container
     containers.playArea.addChild(new Graphics().rect(0, 0, app.screen.width, app.screen.height - 300).fill(0x555555));
@@ -46,6 +48,9 @@ let selectedParticle = Sand;
 
     const matrix = new Matrix(app, containers)
 
+  
+
+
     app.ticker.add(gameLoop);
 
     function gameLoop(){
@@ -55,6 +60,9 @@ let selectedParticle = Sand;
             matrix.traverseMatrixAndCreate(previouseMouseX, previouseMouseY, mouseX, mouseY, selectedParticle);
         }
     }
+
+    const outline = new Graphics().rect(0,0, matrix.getTileSize(), matrix.getTileSize()).stroke({ width: 1, color: 0xff0000 });
+    containers.ui.addChild(outline);
 
     createMenu();
 
@@ -79,6 +87,8 @@ let selectedParticle = Sand;
 
         mouseX = Math.trunc(event.global.x / matrix.getTileSize());
         mouseY = Math.trunc(event.global.y / matrix.getTileSize());
+
+        outline.position.set(mouseX * matrix.getTileSize(), mouseY * matrix.getTileSize());
     });
 
     app.stage.on("pointerup", (event) => {

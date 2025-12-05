@@ -213,6 +213,8 @@ class Matrix {
         return ((x < this.getCols() && x >=0) && (y < this.getRows() && y >= 0));
     }
 
+    getContainers(){ return this.containers; }
+
 
     getParticle(x, y)
     { 
