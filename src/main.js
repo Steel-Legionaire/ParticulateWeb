@@ -313,5 +313,16 @@ let allParticleButtons = null;
 
     })*/
 
+    // Disable scrolling when hovering over canvas
+    const elem = document.getElementById('pixi-wrapper');
+
+    elem.addEventListener('mouseover', () => {
+    document.body.style.overflow = 'hidden';
+    });
+
+    elem.addEventListener('mouseout', () => {
+    document.body.style.overflow = ''; // Resets to default (e.g., auto or initial)
+    });
+
 })();
 
