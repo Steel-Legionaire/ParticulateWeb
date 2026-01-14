@@ -1,7 +1,7 @@
 
 import Matrix from './matrix.js' ;
 
-import { Sand, Dirt, Stone, Water, Ash, Bedrock, Obsidian, Ice, Wood, Tnt } from "./particles/particles.js";
+import { Sand, Dirt, Stone, Water, Ash, Bedrock, Obsidian, Ice, Wood, Tnt, Steam, Fire } from "./particles/particles.js";
 
 const { Application, EventSystem, Text, Container, Graphics } = PIXI;
 
@@ -236,7 +236,10 @@ let paused = false;
             liquidsMenu: {
                 waterBtn: createButton("Water").on('pointerdown', () => { selectedParticle = Water }),
             },
-            gasesMenu: {},
+            gasesMenu: {
+                steamBtn: createButton("Steam").on('pointerdown', () => { selectedParticle = Steam }),
+                fireBtn: createButton("Fire").on('pointerdown', () => { selectedParticle = Fire }),
+            },
             miscMenu: {
                 eraserBtn: createButton("Eraser").on('pointerdown', () => { selectedParticle = null }),
             },
@@ -377,7 +380,7 @@ let paused = false;
         if( ! detectMob() ){ document.body.style.overflow = ''; } // Resets to default (e.g., auto or initial)
     });*/
 
-    const elem = document.getElementById('pixi-wrapper');
+    const elem = document.getElementById('pixi');
 
     elem.addEventListener('mouseover', () => {
         document.body.style.overflow = 'hidden';

@@ -1,5 +1,6 @@
 import { MoveableSolid, StaticSolid } from "./solids.js";
 import { Liquid } from "./liquids.js";
+import Gas from "./gas.js";
 
 // Teplate for easy copying
 /*
@@ -145,8 +146,34 @@ class Water extends Liquid {
     }
 }
 
+// Gases
+
+class Steam extends Gas {
+    constructor(x, y, app, matrix){
+        super(x, y, false, true, 5, 0, app, matrix)
+
+        let colors = [0xffffff];
+
+        this.setColor(colors);
+        this.rect.position.set(this.x * this.tileSize, this.y * this.tileSize);
+        this.addToStage(this.rect);
+    }
+}
+
+class Fire extends Gas {
+    constructor(x, y, app, matrix){
+        super(x, y, false, true, 5, 0, app, matrix)
+
+        let colors = [0xFF8700, 0xFF8E00, 0xFF9600, 0xFF9E00, 0xFFA500];
+
+        this.setColor(colors);
+        this.rect.position.set(this.x * this.tileSize, this.y * this.tileSize);
+        this.addToStage(this.rect);
+    }
+}
+
 // Misc
 
 export default Sand;
 
-export { Sand, Dirt, Stone, Water, Ash, Bedrock, Obsidian, Wood, Tnt, Ice };
+export { Sand, Dirt, Stone, Water, Ash, Bedrock, Obsidian, Wood, Tnt, Ice, Steam, Fire };
